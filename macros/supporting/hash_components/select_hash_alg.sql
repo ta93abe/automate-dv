@@ -137,7 +137,9 @@
 
 {% macro duckdb__hash_alg_sha256() -%}
 
-    {% do return("sha256(CAST([HASH_STRING_PLACEHOLDER] AS BLOB))") %}
+    {#- sha256() accepts VARCHAR (UTF-8) and returns hex text; from_hex makes it BLOB like MD5.
+        CAST(... AS BLOB) is not a UTF-8 encode and fails on non-ASCII input. -#}
+    {% do return("from_hex(sha256([HASH_STRING_PLACEHOLDER]))") %}
 
 {% endmacro %}
 
@@ -195,6 +197,8 @@
 
 {% macro duckdb__hash_alg_sha1() -%}
 
-    {% do return("sha1(CAST([HASH_STRING_PLACEHOLDER] AS BLOB))") %}
+    {#- sha1() accepts VARCHAR (UTF-8) and returns hex text; from_hex makes it BLOB like MD5.
+        CAST(... AS BLOB) is not a UTF-8 encode and fails on non-ASCII input. -#}
+    {% do return("from_hex(sha1([HASH_STRING_PLACEHOLDER]))") %}
 
 {% endmacro %}
