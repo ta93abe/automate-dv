@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: hub_customer
+    description: Customer hub loaded on DuckDB
+    columns:
+      - name: CUSTOMER_HK
+        tests:
+          - not_null
+          - unique
+  - name: hub_nation
+    columns:
+      - name: NATION_HK
+        tests:
+          - not_null
+          - unique
+  - name: link_customer_nation
+    columns:
+      - name: CUSTOMER_NATION_HK
+        tests:
+          - not_null
+          - unique
+  - name: sat_customer_details
+    columns:
+      - name: CUSTOMER_HK
+        tests:
+          - not_null

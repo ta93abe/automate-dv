@@ -57,6 +57,18 @@ Learn quickly with our worked example:
 
 [Platform support matrix](https://automate-dv.readthedocs.io/en/latest/platform_support/)
 
+This fork also supports [DuckDB](https://duckdb.org/) via `dbt-duckdb`. Table macros reuse the Snowflake/`QUALIFY` implementations; hashing, types, and date helpers are DuckDB-specific.
+
+Smoke-test locally:
+
+```bash
+cd integration_tests/duckdb
+dbt deps --profiles-dir .
+dbt seed --profiles-dir .
+dbt run --profiles-dir .
+dbt test --profiles-dir .
+```
+
 ## Installation
 
 Check [dbt Hub](https://hub.getdbt.com/Datavault-UK/automate_dv/latest/) for the latest installation instructions, 

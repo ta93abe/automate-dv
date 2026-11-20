@@ -73,6 +73,12 @@
 
 {% endmacro %}
 
+{% macro duckdb__hash_alg_md5() -%}
+
+    {% do return("from_hex(md5([HASH_STRING_PLACEHOLDER]))") %}
+
+{% endmacro %}
+
 
 {#- SHA256 -#}
 
@@ -129,6 +135,14 @@
 
 {% endmacro %}
 
+{% macro duckdb__hash_alg_sha256() -%}
+
+    {#- sha256() accepts VARCHAR (UTF-8) and returns hex text; from_hex makes it BLOB like MD5.
+        CAST(... AS BLOB) is not a UTF-8 encode and fails on non-ASCII input. -#}
+    {% do return("from_hex(sha256([HASH_STRING_PLACEHOLDER]))") %}
+
+{% endmacro %}
+
 {#- SHA1 -#}
 
 {%- macro hash_alg_sha1() -%}
@@ -178,5 +192,13 @@
     {%- else -%}
         {%- do return(automate_dv.cast_binary('UPPER(SHA1([HASH_STRING_PLACEHOLDER]))', quote=false)) -%}
     {%- endif -%}
+
+{% endmacro %}
+
+{% macro duckdb__hash_alg_sha1() -%}
+
+    {#- sha1() accepts VARCHAR (UTF-8) and returns hex text; from_hex makes it BLOB like MD5.
+        CAST(... AS BLOB) is not a UTF-8 encode and fails on non-ASCII input. -#}
+    {% do return("from_hex(sha1([HASH_STRING_PLACEHOLDER]))") %}
 
 {% endmacro %}
