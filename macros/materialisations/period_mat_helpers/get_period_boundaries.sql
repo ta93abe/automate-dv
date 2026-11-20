@@ -150,6 +150,13 @@
 {%- endmacro %}
 
 
+{% macro duckdb__get_period_boundaries(target_relation, timestamp_field, start_date, stop_date, period) -%}
+
+    {{ return(automate_dv.postgres__get_period_boundaries(target_relation=target_relation, timestamp_field=timestamp_field, start_date=start_date, stop_date=stop_date, period=period)) }}
+
+{%- endmacro %}
+
+
 {% macro postgres__get_period_boundaries(target_relation, timestamp_field, start_date, stop_date, period) -%}
 
     {% set period_boundary_sql -%}

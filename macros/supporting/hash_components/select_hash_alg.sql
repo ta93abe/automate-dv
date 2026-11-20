@@ -73,6 +73,12 @@
 
 {% endmacro %}
 
+{% macro duckdb__hash_alg_md5() -%}
+
+    {% do return("from_hex(md5([HASH_STRING_PLACEHOLDER]))") %}
+
+{% endmacro %}
+
 
 {#- SHA256 -#}
 
@@ -129,6 +135,12 @@
 
 {% endmacro %}
 
+{% macro duckdb__hash_alg_sha256() -%}
+
+    {% do return("sha256(CAST([HASH_STRING_PLACEHOLDER] AS BLOB))") %}
+
+{% endmacro %}
+
 {#- SHA1 -#}
 
 {%- macro hash_alg_sha1() -%}
@@ -178,5 +190,11 @@
     {%- else -%}
         {%- do return(automate_dv.cast_binary('UPPER(SHA1([HASH_STRING_PLACEHOLDER]))', quote=false)) -%}
     {%- endif -%}
+
+{% endmacro %}
+
+{% macro duckdb__hash_alg_sha1() -%}
+
+    {% do return("sha1(CAST([HASH_STRING_PLACEHOLDER] AS BLOB))") %}
 
 {% endmacro %}

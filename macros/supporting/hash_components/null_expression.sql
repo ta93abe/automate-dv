@@ -46,3 +46,9 @@
     {% do return(column_expression) %}
 
 {%- endmacro -%}
+
+{%- macro duckdb__null_expression(standardise, column_str, null_placeholder_string) -%}
+
+    {{ return(automate_dv.postgres__null_expression(standardise=standardise, column_str=column_str, null_placeholder_string=null_placeholder_string)) }}
+
+{%- endmacro -%}

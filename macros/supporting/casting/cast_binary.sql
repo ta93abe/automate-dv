@@ -39,3 +39,16 @@
 
 {%- endmacro -%}
 
+{%- macro duckdb__cast_binary(column_str, alias=none, quote=true) -%}
+
+    {#- Quoted values are hex strings, matching Snowflake CAST('00..' AS BINARY) -#}
+    {%- if quote -%}
+        from_hex('{{ column_str }}')
+    {%- else -%}
+        CAST({{ column_str }} AS {{ automate_dv.type_binary() }})
+    {%- endif -%}
+
+    {%- if alias %} AS {{ alias }} {%- endif -%}
+
+{%- endmacro -%}
+

@@ -86,3 +86,9 @@
     COALESCE({{ col_name }}, '{{ default_value }}') AS {{ col_name }}
 
 {%- endmacro -%}
+
+{%- macro duckdb__null_column_sql(col_name, default_value) -%}
+
+    {{ automate_dv.postgres__null_column_sql(col_name=col_name, default_value=default_value) }}
+
+{%- endmacro -%}

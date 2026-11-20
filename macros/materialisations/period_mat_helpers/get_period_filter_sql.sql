@@ -47,6 +47,13 @@
 
 
 
+{% macro duckdb__get_period_filter_sql(target_cols_csv, base_sql, timestamp_field, period, start_timestamp, stop_timestamp, offset) -%}
+
+    {{ return(automate_dv.postgres__get_period_filter_sql(target_cols_csv=target_cols_csv, base_sql=base_sql, timestamp_field=timestamp_field, period=period, start_timestamp=start_timestamp, stop_timestamp=stop_timestamp, offset=offset)) }}
+
+{%- endmacro %}
+
+
 {% macro postgres__get_period_filter_sql(target_cols_csv, base_sql, timestamp_field, period, start_timestamp, stop_timestamp, offset) -%}
 
     {%- set filtered_sql = {'sql': base_sql} -%}

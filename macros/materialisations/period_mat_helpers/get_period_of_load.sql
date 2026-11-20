@@ -69,6 +69,13 @@
 {%- endmacro -%}
 
 
+{%- macro duckdb__get_period_of_load(period, offset, start_timestamp) -%}
+
+    {{ return(automate_dv.postgres__get_period_of_load(period=period, offset=offset, start_timestamp=start_timestamp)) }}
+
+{%- endmacro -%}
+
+
 {%- macro postgres__get_period_of_load(period, offset, start_timestamp) -%}
     {# Postgres uses different DateTime arithmetic #}
     {% set period_of_load_sql -%}

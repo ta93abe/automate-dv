@@ -1,0 +1,7 @@
+automate_dv_duckdb_tests:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: automate_dv_duckdb_tests.duckdb
+      threads: 4

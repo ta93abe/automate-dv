@@ -1,0 +1,23 @@
+name: automate_dv_duckdb_tests
+version: "1.0.0"
+config-version: 2
+profile: automate_dv_duckdb_tests
+
+seed-paths: ["seeds"]
+model-paths: ["models"]
+
+clean-targets:
+  - target
+  - dbt_packages
+
+vars:
+  hash: MD5
+  enable_ghost_records: true
+
+models:
+  automate_dv_duckdb_tests:
+    staging:
+      +materialized: view
+    raw_vault:
+      +materialized: incremental
+      +on_schema_change: append_new_columns
